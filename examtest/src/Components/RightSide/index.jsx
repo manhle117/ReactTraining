@@ -4,6 +4,7 @@ import InvoiceModal from "../InvoiceModal";
 
 export default function RightSide(props) {
   const {
+    note,
     date,
     billToForm,
     itemRow,
@@ -12,6 +13,8 @@ export default function RightSide(props) {
     setShowModal,
     taxAndDiscount,
     setTaxAndDiscount,
+    currency,
+    setCurrency
   } = props;
 
   const handleChangTaxAndDis = (e) => {
@@ -21,6 +24,10 @@ export default function RightSide(props) {
       [name]: value,
     }));
   };
+  const handleChangeCurrency = (e) => {
+
+    setCurrency(e.target.value);
+  }
   return (
     <div className="sticky top-6 col-span-2">
       <button
@@ -30,6 +37,8 @@ export default function RightSide(props) {
         Review Invoice
       </button>
       <InvoiceModal
+        currency={currency}
+        note={note}
         date={date}
         billToForm={billToForm}
         itemRow={itemRow}
@@ -41,10 +50,15 @@ export default function RightSide(props) {
       />
       <LineBreak />
       <h3 className="mt-3 font-bold">Currency: </h3>
-      <select className="border rounded-md mt-1 w-full text-center font-medium px-2 py-2">
-        <option value="VND">VND (VietNamDong)</option>
-        <option value="USD">USD (US Dollars)</option>
-        <option value="YEN">YEN (JapanYen)</option>
+      <select onChange={handleChangeCurrency} className="border rounded-md mt-1 w-full text-center font-medium px-2 py-2">
+        <option value="$"> USD (United States Dollar) </option>
+        <option value="£"> GBP (British Pound Sterling) </option>
+        <option value="¥"> JPY (Japanese Yen) </option>
+        <option value="$"> CAD (Canadian Dollar) </option>
+        <option value="$"> AUD (Australian Dollar) </option>
+        <option value="$"> SGD (Signapore Dollar) </option>
+        <option value="¥"> CNY (Chinese Renminbi) </option>
+        <option value="₿"> BTC (Bitcoin) </option>
       </select>
       <h3 className="mt-3 font-bold">Tax Rate: </h3>
       <div className="relative flex flex-wrap items-stretch">
@@ -54,7 +68,8 @@ export default function RightSide(props) {
           value={taxAndDiscount.tax}
           onChange={handleChangTaxAndDis}
           className="relative m-0 bg-white -ml-px block w-[1px] min-w-0 flex-auto rounded-l border border-solid border-neutral-300 bg-transparent bg-clip-padding px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:focus:border-primary"
-          placeholder="0.0"
+          step='0.01'
+          defaultValue='0.00'
         />
         <span className="flex items-center bg-gray-50 whitespace-nowrap rounded-r border border-solid border-neutral-300 px-3 py-[0.25rem] text-center text-base font-normal leading-[1.6] text-neutral-700 dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200">
           %
@@ -66,9 +81,11 @@ export default function RightSide(props) {
           type="number"
           name="discount"
           value={taxAndDiscount.discount}
+          step='0.01'
           onChange={handleChangTaxAndDis}
           className="relative m-0 bg-white -ml-px block w-[1px] min-w-0 flex-auto rounded-l border border-solid border-neutral-300 bg-transparent bg-clip-padding px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:focus:border-primary"
-          placeholder="0.0"
+          defaultValue='0.00'
+
         />
         <span className="flex items-center bg-gray-50 whitespace-nowrap rounded-r border border-solid border-neutral-300 px-3 py-[0.25rem] text-center text-base font-normal leading-[1.6] text-neutral-700 dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200">
           %

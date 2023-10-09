@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import InforInvoice from "../InforInvoice";
 import LineBreak from "../LineBreak";
 import TableItem from "../TableItem";
@@ -29,6 +29,11 @@ export default function MainView() {
     emailFrom: "",
     addressFrom: "",
   });
+  const [note, setNote] = useState(
+    {
+      note: ''
+    }
+  );
   const [billFromForm, setBillFromForm] = useState(initBillFrom);
 
   const handleSubmit = (e) => {
@@ -56,9 +61,10 @@ export default function MainView() {
     updateTable.splice(index, 1);
     setItemRow(updateTable);
   };
+  const [currency, setCurrency] = useState('$')
   return (
     <form onSubmit={handleSubmit}>
-      <div className="container mx-auto px-16 py-6 bg-gray-200">
+      <div className="container w-full h-full mx-auto px-16 py-6 bg-[#f2f3f7]">
         <div className="grid grid-cols-8 gap-4">
           <div className="col-span-6 bg-white rounded-xl border border- p-10">
             <TimeComponent date={date} setDate={setDate} />
@@ -88,14 +94,17 @@ export default function MainView() {
             <div className="grid grid-cols-6 gap-5">
               <div className="col-span-3"></div>
               <div className="col-span-3">
-                <InforMoney />
+                <InforMoney currency={currency} itemRow={itemRow} taxAndDiscount={taxAndDiscount} />
               </div>
             </div>
             <LineBreak />
-            <Note />
+            <Note note={note} setNote={setNote} />
           </div>
           <div className="col-span-2 ">
             <RightSide
+              currency={currency}
+              setCurrency={setCurrency}
+              note={note}
               date={date}
               billToForm={billToForm}
               itemRow={itemRow}

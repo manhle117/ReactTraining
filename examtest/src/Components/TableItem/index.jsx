@@ -67,12 +67,13 @@ export default function TableItem(props) {
                     handleChangeItem(e, index);
                   }}
                   className="w-14 border rounded-md px-2 p-1 mt-1 bg-gray-100 mb-10"
+                  required
                 />
               </td>
               <td class="whitespace  py-4  overflow-hidden">
-                <div className="relative flex flex-nowrap items-stretch mb-10  ">
+                <div className="relative flex flex-nowrap items-stretch mb-10 bg-gray-100 overflow-hidden w-[110px] ">
                   <span
-                    className="flex items-center whitespace-nowrap rounded-l border border-r-0 border-solid border-neutral-300 px-3 py-[0.25rem] text-center text-base font-normal leading-[1.6] text-neutral-700 dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200"
+                    className="flex items-center whitespace-nowrap rounded-l border border-r-0 bg-gray-100 border-solid border-neutral-300 px-3 py-[0.25rem] text-center text-base font-normal leading-[1.6] text-neutral-700 dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200"
                     id="addon-wrapping"
                   >
                     <CiDollar />
@@ -84,8 +85,8 @@ export default function TableItem(props) {
                     onChange={(e) => {
                       handleChangeItem(e, index);
                     }}
-                    className="relative m-0 block w-16 min-w-0  rounded-r border border-solid border-neutral-300 bg-transparent bg-clip-padding px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:focus:border-primary"
-                    defaultValue={1}
+                    className="relative m-0 block w-[70px] min-w-0  rounded-r border border-l-0 border-solid bg-gray-100 border-neutral-300 bg-transparent bg-clip-padding px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:focus:border-primary"
+                    required
                   />
                 </div>
               </td>
@@ -96,6 +97,7 @@ export default function TableItem(props) {
                     props.handleDeleteRow(index);
                   }}
                   className="bg-red-600 p-2 border rounded-lg mb-10 mx-3"
+                  
                 >
                   <BsTrash />
                 </button>

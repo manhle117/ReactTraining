@@ -2,6 +2,8 @@ import React from "react";
 import { usePDF } from "react-to-pdf";
 export default function InvoiceModal(props) {
   const {
+    currency,
+    note,
     date,
     billToForm,
     itemRow,
@@ -9,6 +11,7 @@ export default function InvoiceModal(props) {
     taxAndDiscount,
     setTaxAndDiscount,
   } = props;
+  const subTotal = itemRow.reduce((accumulator, item) => accumulator + item.qty * item.price, 0)
   const { toPDF, targetRef } = usePDF({ filename: "page.pdf" });
   return (
     <>
@@ -23,14 +26,11 @@ export default function InvoiceModal(props) {
                 <div id="invoiceCapture" ref={targetRef}>
                   <div className="bg-gray-100 p-4 flex justify-between items-start">
                     <div className="w-3/4">
-                      <h4 className="font-bold my-2">adf</h4>
-                      <h6 className="font-bold text-secondary mb-1">
-                        Invoice #: 1
-                      </h6>
+                      <h4 className="font-bold my-2">{billFromForm.billFrom}</h4>
                     </div>
                     <div className="text-end">
                       <h6 className="font-bold mt-1 mb-2">Amount Due:</h6>
-                      <h5 className="font-bold text-secondary">$ 1</h5>
+                      <h5 className="font-bold text-secondary">{currency}{subTotal + subTotal * taxAndDiscount.tax / 100 - subTotal * taxAndDiscount.discount / 100}</h5>
                     </div>
                   </div>
                   <div className="p-4">
@@ -71,26 +71,30 @@ export default function InvoiceModal(props) {
                                 <td>
                                   {item.productName}-{item.desc}
                                 </td>
-                                <td className="text-end">{item.price}</td>
-                                <td className="text-end">$ 1</td>
+                                <td className="text-end">{currency}{item.price}</td>
+                                <td className="text-end">{currency}{item.price * item.qty}</td>
                               </tr>
                             </>
                           );
                         })}
+                       
                         <tr className="text-end border-b">
                           <td className="font-bold py-2" colSpan={3}>
                             SUBTOTAL
                           </td>
-                          <td>$ 1.00</td>
+                          <td>{currency}{subTotal}</td>
                         </tr>
                         <tr className="text-end border-b">
                           <td className="font-bold py-2" colSpan={3}>
                             TOTAL
                           </td>
-                          <td>$ 1</td>
+                          <td>{currency}{subTotal + subTotal * taxAndDiscount.tax / 100 - subTotal * taxAndDiscount.discount / 100}</td>
                         </tr>
                       </tbody>
                     </table>
+                    <div className="bg-[#f2f3f7] mt-4 py-2">
+                      <p className="ml-2 text-base ">{note.note}</p>
+                    </div>
                   </div>
                 </div>
                 <div className="pb-4 pt-6 px-4">
